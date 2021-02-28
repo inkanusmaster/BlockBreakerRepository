@@ -9,10 +9,15 @@ public class Ball : MonoBehaviour
     Vector2 paddleToBallVector;
     bool hasStarted;
 
-    //Przy kliknięciu mamy xVelocity, czyli jak bardzo na prawo (czy lewo jak ujemne) wybije nam piłka/
-    //yVelocity mówi nam jak wysoko wystrzeli piłka.
     [SerializeField] float xVelocity = 2f;
     [SerializeField] float yVelocity = 15f;
+
+    //Tablica dźwięków którą będziemy w Unity wypełniać
+    [SerializeField] AudioClip[] ballSounds;
+
+    //Robimy sobie referencję do komponentu AudioSource tutaj.
+    //Nie chcemy za każdym razem przy kolizji robić deklaracji i inicjalizacji.
+    AudioSource myAudioSource;
 
 
     void Start()
@@ -20,11 +25,13 @@ public class Ball : MonoBehaviour
         paddleToBallVector = transform.position - paddle.transform.position;
         hasStarted = false;
 
+        //Inicjalizujemy sobie zmienną myAudioSource;
+        myAudioSource = GetComponent<AudioSource>();
+
     }
 
     void Update()
     {
-        //Trzymamy piłkę na paddlu, oraz gdy raz już klikniemy i piłka leci, to przy ponownym kliknięciu nie startuje znowu.
         if (!hasStarted)
         {
             LockBallToBaddle();
@@ -41,17 +48,25 @@ public class Ball : MonoBehaviour
 
     private void LaunchOnClick()
     {
-        //Czyli jeśli wciśnięto pierwszy klawisz myszy
         if (Input.GetMouseButtonDown(0))
         {
-            //Musimy mieć dostęp do komponentu rigidbody piłki.
-            //ustawiamy prędkość piłki. 
-            //Posiada współrzędne x i y więc robimy to jako Vector2
-            //ten GetComponent z parametrem Rigidbody2D dostaje się to komponentu w inspektorze. Tam jest Velocity
             GetComponent<Rigidbody2D>().velocity = new Vector2(xVelocity, yVelocity);
-
-            //Robimy true, żeby piłka odleciała i już nie trzymała się paddla
             hasStarted = true;
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (hasStarted)
+        {
+            //Robimy losowy klip z tablicy ballSounds.
+            //Uwaga na typ random. Robimy UnityEngine.Random.
+            //Nie robimy length-1 bo Range jak pamiętamy z poprzednich tematów nie robi do Max tylko Max-1 (jest exclusive).
+            AudioClip clip = ballSounds[UnityEngine.Random.Range(0, ballSounds.Length)];
+
+            //Użyjemy PlayOneShot. Pozwala dźwiękowi dobrzmieć do końca gdy zmieni się nagle Audio Source na inne.
+            //Zmienną sobie na początku zadeklarowaliśmy i w starcie zainicjalizowaliśmy.
+            myAudioSource.PlayOneShot(clip);
         }
     }
 

@@ -14,11 +14,6 @@ public class Block : MonoBehaviour
         //oznacza ten objekt. Ten do którego przypniemy ten skrypt.
         //może przyjąć drugi parametr we floacie, po jakim czasie ma być zniszczony.
         Destroy(gameObject);
-
-        //A tutaj, jako że mamy parametr collision,
-        //możemy np sobie wyświetlić informacje co się dzieje z tym collision
-        //to poniżej wyświetli nam nazwę tego, co się z nami zderzyło, czyli Ball.
-        Debug.Log(collision.gameObject.name);
     }
 
 }
