@@ -12,11 +12,8 @@ public class Ball : MonoBehaviour
     [SerializeField] float xVelocity = 2f;
     [SerializeField] float yVelocity = 15f;
 
-    //Tablica dźwięków którą będziemy w Unity wypełniać
     [SerializeField] AudioClip[] ballSounds;
 
-    //Robimy sobie referencję do komponentu AudioSource tutaj.
-    //Nie chcemy za każdym razem przy kolizji robić deklaracji i inicjalizacji.
     AudioSource myAudioSource;
 
 
@@ -24,8 +21,6 @@ public class Ball : MonoBehaviour
     {
         paddleToBallVector = transform.position - paddle.transform.position;
         hasStarted = false;
-
-        //Inicjalizujemy sobie zmienną myAudioSource;
         myAudioSource = GetComponent<AudioSource>();
 
     }
@@ -38,7 +33,6 @@ public class Ball : MonoBehaviour
             LaunchOnClick();
         }
     }
-
 
     private void LockBallToBaddle()
     {
@@ -59,13 +53,7 @@ public class Ball : MonoBehaviour
     {
         if (hasStarted)
         {
-            //Robimy losowy klip z tablicy ballSounds.
-            //Uwaga na typ random. Robimy UnityEngine.Random.
-            //Nie robimy length-1 bo Range jak pamiętamy z poprzednich tematów nie robi do Max tylko Max-1 (jest exclusive).
             AudioClip clip = ballSounds[UnityEngine.Random.Range(0, ballSounds.Length)];
-
-            //Użyjemy PlayOneShot. Pozwala dźwiękowi dobrzmieć do końca gdy zmieni się nagle Audio Source na inne.
-            //Zmienną sobie na początku zadeklarowaliśmy i w starcie zainicjalizowaliśmy.
             myAudioSource.PlayOneShot(clip);
         }
     }

@@ -2,17 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-//Będziemy chcieli niszczyć nasz blok kiedy wystąpi kolizja
-//Nie potrzebujemy tu Start ani Update
-//Tylko wywołania czegoś gdy wystąpi kolizja.
 public class Block : MonoBehaviour
 {
-    //Czyli mamy metodę wywołaną przy kolizji.
+    [SerializeField] AudioClip breakSound;
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        //parametr z małej gameObject jest wykrywalny jako parametr
-        //oznacza ten objekt. Ten do którego przypniemy ten skrypt.
-        //może przyjąć drugi parametr we floacie, po jakim czasie ma być zniszczony.
+        //Na kolizji, zanim zniszczymy obiekt robimy PlayClipAtPoint()
+        //Tworzymy chwilowo AudioSource i wywołujemy metodę
+        //PlayClipAtPoint z parametrem breakSound
+        //A tam w Unity już pod to pole damy nasz sound.
+        //Podajemy tutaj jako drugi parametr pozycję na scenie, z której pochodzi dźwięk.
+
+        //OK. Chcemy słyszeć dźwięk tam gdzie mamy kamerę.
+        //Możnaby dać z pozycji klocka, ale jak on jest dalej to dźwięk byłby cichszy.
+        //Dlatego zamiast transform x i y czyli miejsca klocka robimy Camera.main.transform bo z kamery chcemy słuchać
+        //Tym właśnie odwołujemy się do pozycji kamery! Głównej kamery. Nie mamy teraz innych
+        AudioSource.PlayClipAtPoint(breakSound, Camera.main.transform.position);
         Destroy(gameObject);
     }
 
