@@ -19,13 +19,10 @@ public class Block : MonoBehaviour
         DestroyBlock();
     }
 
-    //Extract method robimy żeby porządzek był w OnCollisionEnter2D.
     private void DestroyBlock()
     {
         AudioSource.PlayClipAtPoint(breakSound, Camera.main.transform.position);
         Destroy(gameObject);
-
-        //Jeśli zniszczymy obiekt, należy zmniejszyć ilość bloków w levelu.
         level.BlockDestroyed();
     }
 }
