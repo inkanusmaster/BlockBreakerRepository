@@ -4,22 +4,26 @@ using UnityEngine;
 
 public class GameStatus : MonoBehaviour
 {
-    //Zmienna z prędkością. Będziemy mogli w inspektorze Unity suwakiem przesuwać.
-    //Ten suwak trzeba oczywiście zrobić z odpowiednimi wartościami min i max.
-    //Robimy go Range(min,max) przed deklaracją serializowanego pola.
     [Range(0.1f, 5f)] [SerializeField] float gameSpeed = 1f;
 
-    void Start()
-    {
+    //Wybieramy ile punktów za zniszczony blok.
+    [SerializeField] int pointsPerBlockDestroyed = 2;
 
-    }
+    //Inicjalizujemy obecny score jako 0. 
+    //Robimy to po to żeby po resecie zawsze wynosił zero.
+    [SerializeField] int currentScore = 0;
 
-    //Prędkość gry to coś co sprawdzamy every frame.
-    //Dlatego będzie w Update.
-    //Wartości są zmiennoprzecinkowe, więc robimy float.
-    //1 oznacza normalną prędkość.
     void Update()
     {
         Time.timeScale = gameSpeed;
     }
+
+    //Dodawanie punktów. Chyba oczywiste.
+    //Będziemy to robić po zbiciu klocka.
+    public void AddToScore()
+    {
+        currentScore += pointsPerBlockDestroyed;
+    }
+
+
 }
