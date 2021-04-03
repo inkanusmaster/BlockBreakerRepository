@@ -16,6 +16,7 @@ public class GameStatus : MonoBehaviour
 
         if (gameStatusCount > 1)
         {
+
             //pamiętamy żeby przed zniszczeniem w Singleton zrobić SetActive(false).
             //Chodzi o to, ze Destroy dzieje się na końcu frame - nawiązując do lifecycle
             //To oznacza, że inny obiekt ciągle może znaleźć GameStatus używając FindObjectOfType i mamy bug.
