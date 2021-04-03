@@ -21,9 +21,6 @@ public class Block : MonoBehaviour
 
     private void DestroyBlock()
     {
-        //Taka nowość w dodawaniu punktów. Robimy to jak walniemy.
-        //Nie ma sensu tutaj robić referencji. Obiekt jest niszczony przy walnięciu i tak.
-        //Nie potrzebujemy referencji "na potem".
         FindObjectOfType<GameStatus>().AddToScore();
         AudioSource.PlayClipAtPoint(breakSound, Camera.main.transform.position);
         Destroy(gameObject);

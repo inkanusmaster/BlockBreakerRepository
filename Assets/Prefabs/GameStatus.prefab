@@ -46,3 +46,4 @@ MonoBehaviour:
   gameSpeed: 1
   pointsPerBlockDestroyed: 2
   currentScore: 0
+  scoreText: {fileID: 0}
