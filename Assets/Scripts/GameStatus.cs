@@ -16,11 +16,6 @@ public class GameStatus : MonoBehaviour
 
         if (gameStatusCount > 1)
         {
-
-            //pamiętamy żeby przed zniszczeniem w Singleton zrobić SetActive(false).
-            //Chodzi o to, ze Destroy dzieje się na końcu frame - nawiązując do lifecycle
-            //To oznacza, że inny obiekt ciągle może znaleźć GameStatus używając FindObjectOfType i mamy bug.
-            //Zorbienie obiektu inactive dzieje się natychmiastowo więc jest bezpiecznie żeby to zrobić przed usunięciem na końcu framea.
             gameObject.SetActive(false);
             Destroy(gameObject);
         }
@@ -44,6 +39,15 @@ public class GameStatus : MonoBehaviour
     {
         currentScore += pointsPerBlockDestroyed;
         scoreText.text = currentScore.ToString();
+    }
+
+    //Tu resetujemy grę. Np. punkty zerujemy
+    //Teraz niszczymy nasz singleton.
+    public void ResetGame()
+    {
+        //Przypominam, że gameObject reprezentuje tę konkretną instancję.
+        //Czyli zniszcz się.
+        Destroy(gameObject);
     }
 
 
