@@ -40,13 +40,8 @@ public class GameStatus : MonoBehaviour
         currentScore += pointsPerBlockDestroyed;
         scoreText.text = currentScore.ToString();
     }
-
-    //Tu resetujemy grę. Np. punkty zerujemy
-    //Teraz niszczymy nasz singleton.
     public void ResetGame()
     {
-        //Przypominam, że gameObject reprezentuje tę konkretną instancję.
-        //Czyli zniszcz się.
         Destroy(gameObject);
     }
 
