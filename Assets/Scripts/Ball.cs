@@ -20,7 +20,6 @@ public class Ball : MonoBehaviour
         paddleToBallVector = transform.position - paddle.transform.position;
         hasStarted = false;
         myAudioSource = GetComponent<AudioSource>();
-
     }
 
     void Update()
