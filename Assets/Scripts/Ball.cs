@@ -8,10 +8,8 @@ public class Ball : MonoBehaviour
     [SerializeField] Paddle paddle;
     Vector2 paddleToBallVector;
     bool hasStarted;
-
     [SerializeField] float xVelocity = 2f;
     [SerializeField] float yVelocity = 15f;
-
     [SerializeField] AudioClip[] ballSounds;
 
     AudioSource myAudioSource;

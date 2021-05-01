@@ -14,8 +14,6 @@ public class SceneLoader : MonoBehaviour
     public void LoadStartScene()
     {
         SceneManager.LoadScene(0);
-
-        //Wywołujemy metodę restartującą punkty, czyli defacto niszczącą singleton GameStatus.
         FindObjectOfType<GameStatus>().ResetGame();
     }
 
