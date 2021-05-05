@@ -8,11 +8,8 @@ public class Block : MonoBehaviour
     //Configuration parameters
     [SerializeField] AudioClip breakSound;
     [SerializeField] GameObject blockSparklesVFX;
-    [SerializeField] int maxHits;
-
-    //Robimy tablicę Spritów. Będziemy do niej wczytywać sprity zawierające poziomy zniszczeń bloku.
-    //Normalna rzecz. SerializedField poniewać inicjalizujemy to elegancko w inspektorze.
     [SerializeField] Sprite[] hitSprites;
+    int maxHits;
 
     //Cached references
     Level level;
@@ -47,26 +44,28 @@ public class Block : MonoBehaviour
     private void HandleHit()
     {
         timesHit++;
+        maxHits = hitSprites.Length + 1; //Zmieniamy tutaj statyczny wpis ilości maxHits. Wiemy, że jest on o 1 większy niż ilość spritów w tablicy.
         if (timesHit >= maxHits)
         {
             DestroyBlock();
         }
         else
         {
-            //Będziemy pokazywać kolejny sprite po uderzeniu. Refaktoryzacja!
             ShowNextHitSprite();
         }
     }
 
-    //Trzeba będzie zmieniać sprite po uderzeniu!
     private void ShowNextHitSprite()
     {
-        //Indexujemy od zera, więc jak trafimy w blok to elementy tablicy spritów iterujemy od zera.
         int spriteIndex = timesHit - 1;
-
-        //Jesteśmy w prefabie blok. Ustawiamy w jego zakładce Sprite Renderer jako aktualny sprite ten nadany z tablicy spritów.
-        //Proste
-        GetComponent<SpriteRenderer>().sprite = hitSprites[spriteIndex];
+        if (hitSprites[spriteIndex] != null)  //Sprawdzamy czy element do którego chcemy się odwołać jest w ogóle...
+        {
+            GetComponent<SpriteRenderer>().sprite = hitSprites[spriteIndex];
+        }
+        else
+        {
+            Debug.LogError("Missing sprite from array!" + gameObject.name); //Logujemy co się stanie jak będziemy chcieli odwołać się do spritea którego nie ma w tablicy. Nazwę GameObjectu podajemy.
+        }
     }
 
     private void DestroyBlock()
