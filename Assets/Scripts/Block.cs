@@ -44,7 +44,7 @@ public class Block : MonoBehaviour
     private void HandleHit()
     {
         timesHit++;
-        maxHits = hitSprites.Length + 1; //Zmieniamy tutaj statyczny wpis ilości maxHits. Wiemy, że jest on o 1 większy niż ilość spritów w tablicy.
+        maxHits = hitSprites.Length + 1;
         if (timesHit >= maxHits)
         {
             DestroyBlock();
@@ -58,13 +58,13 @@ public class Block : MonoBehaviour
     private void ShowNextHitSprite()
     {
         int spriteIndex = timesHit - 1;
-        if (hitSprites[spriteIndex] != null)  //Sprawdzamy czy element do którego chcemy się odwołać jest w ogóle...
+        if (hitSprites[spriteIndex] != null)
         {
             GetComponent<SpriteRenderer>().sprite = hitSprites[spriteIndex];
         }
         else
         {
-            Debug.LogError("Missing sprite from array!" + gameObject.name); //Logujemy co się stanie jak będziemy chcieli odwołać się do spritea którego nie ma w tablicy. Nazwę GameObjectu podajemy.
+            Debug.LogError("Missing sprite from array!" + gameObject.name);
         }
     }
 
