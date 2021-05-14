@@ -10,6 +10,11 @@ public class GameStatus : MonoBehaviour
     [SerializeField] int currentScore = 0;
     [SerializeField] TextMeshProUGUI scoreText;
 
+    //Tutaj zmienna do właczania autotestu.
+    //Nie chcemy robić tej zmiennej publicznej, żeby nie było takiego łatwego dostępu.
+    //Publiczną metodę robimy do zmiany.
+    [SerializeField] bool isAutoPlayEnabled;
+
     private void Awake()
     {
         int gameStatusCount = FindObjectsOfType<GameStatus>().Length;
@@ -45,5 +50,10 @@ public class GameStatus : MonoBehaviour
         Destroy(gameObject);
     }
 
+    //Metoda zwraca w sumie true lub false.
+    public bool IsAutoPlayEnabled()
+    {
+        return isAutoPlayEnabled;
+    }
 
 }
